@@ -1,6 +1,7 @@
 import {
   isPlacementValid,
   placeShipRandomly,
+  autoPlaceAllShips,
 } from "../src/utils/shipPlacement.js";
 import Gameboard from "../src/logic/Gameboard";
 import Ship from "../src/logic/Ship";
@@ -56,5 +57,17 @@ describe("shipPlacement", () => {
     const ships = board.getShips();
     expect(ships.length).toBe(1);
     expect(ships[0].coordinates.length).toBe(3);
+  });
+
+  test("autoPlaceAllShips places all ships without overlap", () => {
+    const board = Gameboard();
+    autoPlaceAllShips(board);
+
+    const ships = board.getShips();
+    const totalCells = ships.flatMap((ship) => ship.coordinates);
+    const uniqueCells = new Set(totalCells.map(([x, y]) => `${x},${y}`));
+
+    expect(ships.length).toBe(10);
+    expect(uniqueCells.size).toBe(totalCells.length);
   });
 });

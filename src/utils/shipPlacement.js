@@ -61,3 +61,11 @@ export function placeShipRandomly(board, length) {
   const ship = Ship(length);
   board.placeShip(ship, coordinates);
 }
+
+export function autoPlaceAllShips(board) {
+  const shipLengths = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
+
+  for (let i = 0; i < shipLengths.length; i++) {
+    placeShipRandomly(board, shipLengths[i]);
+  }
+}
