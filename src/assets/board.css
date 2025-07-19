@@ -1,0 +1,27 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 24px);
+  grid-template-rows: repeat(10, 24px);
+  gap: 2px;
+  width: max-content;
+  margin: 16px;
+}
+
+.cell {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  background-color: lightblue;
+}
+
+.cell.ship {
+  background-color: navy;
+}
+
+.cell.hit {
+  background-color: red;
+}
+
+.cell.miss {
+  background-color: white;
+}
