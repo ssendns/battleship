@@ -8,6 +8,7 @@ const shipLengths = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
 function GameSetup({ playerBoard, onComplete }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [orientation, setOrientation] = useState("horizontal");
+  const [usedCells, setUsedCells] = useState(new Set());
 
   const handleRotation = (current) => {
     if (current === "horizontal") {
@@ -23,6 +24,8 @@ function GameSetup({ playerBoard, onComplete }) {
   };
 
   const handleCellClick = (x, y) => {
+    const key = `${x},${y}`;
+    if (usedCells.has(key)) return;
     const coordinates = [];
 
     for (let i = 0; i < shipLengths[currentIndex]; i++) {
@@ -48,6 +51,10 @@ function GameSetup({ playerBoard, onComplete }) {
       } else {
         setCurrentIndex(currentIndex + 1);
       }
+
+      const newUsed = new Set(usedCells);
+      coordinates.forEach(([x, y]) => newUsed.add(`${x},${y}`));
+      setUsedCells(newUsed);
     } else {
       alert("you can not place ship here");
     }
