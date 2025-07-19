@@ -35,7 +35,7 @@ describe("Gameboard", () => {
       [0, 1],
     ]);
     board.receiveAttack(0, 1);
-    expect(ship.hits).toEqual([false, true]);
+    expect(ship.getHits()).toEqual([false, true]);
   });
 
   test("registers a missed attack", () => {
