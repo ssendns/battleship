@@ -34,10 +34,11 @@ export default function Gameboard() {
 
       if (index !== -1) {
         cur.ship.hit(index);
-        return;
+        return true;
       }
     }
     missedAttacks.push([x, y]);
+    return false;
   }
 
   function allShipsSunk() {

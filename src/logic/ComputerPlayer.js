@@ -21,7 +21,7 @@ export default function ComputerPlayer() {
 
   function makeMove(enemyBoard) {
     const [x, y] = getRandomCoordinates();
-    player.attack(enemyBoard, x, y);
+    return player.attack(enemyBoard, x, y);
   }
 
   return { makeMove, getAttemptedAttacks };

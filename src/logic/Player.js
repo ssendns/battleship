@@ -1,7 +1,10 @@
 export default function Player(name = "player") {
+  function getName() {
+    return name;
+  }
   function attack(opponentBoard, x, y) {
-    opponentBoard.receiveAttack(x, y);
+    return opponentBoard.receiveAttack(x, y);
   }
 
-  return { name, attack };
+  return { getName, attack };
 }

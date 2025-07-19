@@ -34,7 +34,8 @@ describe("Gameboard", () => {
       [0, 0],
       [0, 1],
     ]);
-    board.receiveAttack(0, 1);
+    const result = board.receiveAttack(0, 1);
+    expect(result).toEqual(true);
     expect(ship.getHits()).toEqual([false, true]);
   });
 
@@ -45,7 +46,8 @@ describe("Gameboard", () => {
       [0, 0],
       [0, 1],
     ]);
-    board.receiveAttack(1, 1);
+    const result = board.receiveAttack(1, 1);
+    expect(result).toEqual(false);
     expect(board.getMissedAttacks()).toContainEqual([1, 1]);
   });
 
