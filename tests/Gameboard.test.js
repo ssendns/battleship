@@ -73,4 +73,35 @@ describe("Gameboard", () => {
     expect(board.getShips().length).toBe(0);
     expect(board.getMissedAttacks().length).toBe(0);
   });
+
+  test("board view correctly reflects ship placement", () => {
+    const board = Gameboard();
+    const ship = Ship(2);
+    board.placeShip(ship, [
+      [2, 3],
+      [2, 4],
+    ]);
+
+    const view = board.getBoardView();
+
+    expect(view[3][2].hasShip).toBe(true);
+    expect(view[4][2].hasShip).toBe(true);
+    expect(view[0][0].hasShip).toBe(false);
+  });
+
+  test("board view shows isHit and isMiss", () => {
+    const board = Gameboard();
+    const ship = Ship(2);
+    board.placeShip(ship, [
+      [1, 1],
+      [1, 2],
+    ]);
+
+    board.receiveAttack(1, 2);
+    board.receiveAttack(5, 5);
+
+    const view = board.getBoardView();
+    expect(view[2][1].isHit).toBe(true);
+    expect(view[5][5].isMiss).toBe(true);
+  });
 });

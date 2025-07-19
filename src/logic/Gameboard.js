@@ -3,6 +3,44 @@ export default function Gameboard() {
   const missedAttacks = [];
   const boardSize = 10;
 
+  function getBoardView() {
+    const board = [];
+
+    for (let y = 0; y < boardSize; y++) {
+      const row = [];
+      for (let x = 0; x < boardSize; x++) {
+        let isHit = false;
+        let isMiss = false;
+        let hasShip = false;
+
+        for (let i = 0; i < ships.length; i++) {
+          const curShip = ships[i];
+          const index = curShip.coordinates.findIndex(
+            ([curX, curY]) => curX === x && curY === y
+          );
+          if (index !== -1) {
+            hasShip = true;
+            if (curShip.ship.getHits()[index] === true) {
+              isHit = true;
+            }
+          }
+        }
+
+        for (let i = 0; i < missedAttacks.length; i++) {
+          let [curX, curY] = missedAttacks[i];
+          if (curX === x && curY === y) {
+            isMiss = true;
+          }
+        }
+
+        row.push({ isHit, isMiss, hasShip });
+      }
+      board.push(row);
+    }
+
+    return board;
+  }
+
   function getShips() {
     return ships;
   }
@@ -64,5 +102,6 @@ export default function Gameboard() {
     getShips,
     getMissedAttacks,
     reset,
+    getBoardView,
   };
 }
