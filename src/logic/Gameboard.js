@@ -3,6 +3,14 @@ export default function Gameboard() {
   const missedAttacks = [];
   const boardSize = 10;
 
+  function getShips() {
+    return ships;
+  }
+
+  function getMissedAttacks() {
+    return missedAttacks;
+  }
+
   function placeShip(ship, coordinates) {
     for (let i = 0; i < coordinates.length; i++) {
       const x = coordinates[i][0];
@@ -43,5 +51,17 @@ export default function Gameboard() {
     return flag;
   }
 
-  return { placeShip, receiveAttack, allShipsSunk, ships, missedAttacks };
+  function reset() {
+    ships.length = 0;
+    missedAttacks.length = 0;
+  }
+
+  return {
+    placeShip,
+    receiveAttack,
+    allShipsSunk,
+    getShips,
+    getMissedAttacks,
+    reset,
+  };
 }

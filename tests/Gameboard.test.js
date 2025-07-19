@@ -9,8 +9,8 @@ describe("Gameboard", () => {
       [0, 0],
       [0, 1],
     ]);
-    expect(board.ships).toHaveLength(1);
-    expect(board.ships[0].coordinates).toEqual([
+    expect(board.getShips()).toHaveLength(1);
+    expect(board.getShips()[0].coordinates).toEqual([
       [0, 0],
       [0, 1],
     ]);
@@ -46,7 +46,7 @@ describe("Gameboard", () => {
       [0, 1],
     ]);
     board.receiveAttack(1, 1);
-    expect(board.missedAttacks).toContainEqual([1, 1]);
+    expect(board.getMissedAttacks()).toContainEqual([1, 1]);
   });
 
   test("throws error if attack is out of bounds", () => {
@@ -60,5 +60,15 @@ describe("Gameboard", () => {
     board.placeShip(ship, [[0, 0]]);
     board.receiveAttack(0, 0);
     expect(board.allShipsSunk()).toBe(true);
+  });
+
+  test("resets the board correctly", () => {
+    const board = Gameboard();
+    const ship = Ship(1);
+    board.placeShip(ship, [[0, 0]]);
+    board.receiveAttack(0, 0);
+    board.reset();
+    expect(board.getShips().length).toBe(0);
+    expect(board.getMissedAttacks().length).toBe(0);
   });
 });
