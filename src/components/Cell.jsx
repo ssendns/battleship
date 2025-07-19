@@ -12,6 +12,8 @@ export default function Cell({ x, y, cell, onClick, isDisabled }) {
     className += " hit";
   } else if (cell.isMiss) {
     className += " miss";
+  } else if (cell.hasShip) {
+    className += " ship";
   }
 
   return (
@@ -19,6 +21,10 @@ export default function Cell({ x, y, cell, onClick, isDisabled }) {
       data-testid={`cell-${x}-${y}`}
       className={className}
       onClick={handleClick}
+      style={{
+        gridRow: y + 1,
+        gridColumn: x + 1,
+      }}
     ></div>
   );
 }

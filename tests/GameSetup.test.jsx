@@ -29,10 +29,28 @@ vi.mock("../src/utils/shipPlacement", () => ({
 
 const playerBoardMock = {
   board: Array.from({ length: 10 }, () =>
-    Array.from({ length: 10 }, () => ({ isHit: false, isMiss: false }))
+    Array.from({ length: 10 }, () => ({
+      isHit: false,
+      isMiss: false,
+      hasShip: false,
+    }))
   ),
   placeShip: vi.fn(),
+  getBoardView: vi.fn(() =>
+    Array.from({ length: 10 }, () =>
+      Array.from({ length: 10 }, () => ({
+        isHit: false,
+        isMiss: false,
+        hasShip: false,
+      }))
+    )
+  ),
 };
+
+vi.mock("../src/utils/shipPlacement", () => ({
+  isPlacementValid: vi.fn(),
+  autoPlaceAllShips: vi.fn(),
+}));
 
 describe("GameSetup", () => {
   beforeEach(() => {
@@ -99,9 +117,6 @@ describe("GameSetup", () => {
 
     render(<GameSetup playerBoard={playerBoardMock} onComplete={onComplete} />);
 
-    const rotateButton = screen.getByText(/rotate/i);
-    await user.click(rotateButton);
-
     for (let i = 0; i < 10; i++) {
       const cell = screen.getByTestId(`cell-0-${i}`);
       await user.click(cell);
@@ -161,9 +176,6 @@ describe("GameSetup", () => {
     isPlacementValid.mockReturnValue(true);
 
     render(<GameSetup playerBoard={playerBoardMock} onComplete={onComplete} />);
-
-    const rotateButton = screen.getByText(/rotate/i);
-    await user.click(rotateButton);
 
     for (let i = 0; i < 10; i++) {
       const cell = screen.getByTestId(`cell-0-${i}`);

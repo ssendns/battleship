@@ -29,8 +29,8 @@ function GameSetup({ playerBoard, onComplete }) {
     const coordinates = [];
 
     for (let i = 0; i < shipLengths[currentIndex]; i++) {
-      const newX = orientation === "horizontal" ? x : x + i;
-      const newY = orientation === "horizontal" ? y + i : y;
+      const newX = orientation === "horizontal" ? x + i : x;
+      const newY = orientation === "horizontal" ? y : y + i;
 
       if (newX >= 10 || newY >= 10) return;
       coordinates.push([newX, newY]);
@@ -62,7 +62,7 @@ function GameSetup({ playerBoard, onComplete }) {
 
   return (
     <div>
-      <Board boardState={playerBoard.board} onCellClick={handleCellClick} />
+      <Board boardState={playerBoard} onCellClick={handleCellClick} />
       <button onClick={() => handleRotation(orientation)}>
         rotate ({orientation})
       </button>
