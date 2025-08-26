@@ -1,4 +1,11 @@
-export default function Cell({ x, y, cell, onClick, isDisabled }) {
+export default function Cell({
+  x,
+  y,
+  cell,
+  onClick,
+  isDisabled,
+  isPlayerBoard,
+}) {
   const handleClick = () => {
     if (!isDisabled) {
       onClick(x, y);
@@ -12,7 +19,7 @@ export default function Cell({ x, y, cell, onClick, isDisabled }) {
     className += " bg-red-500";
   } else if (cell.isMiss) {
     className += " bg-white";
-  } else if (cell.hasShip) {
+  } else if (cell.hasShip && isPlayerBoard) {
     className += " bg-blue-900";
   } else {
     className += " bg-blue-200 hover:bg-blue-300 cursor-pointer";

@@ -54,7 +54,11 @@ function GamePlay({ game, onGameOver, forceRender }) {
       <div className="flex flex-col sm:flex-row gap-10">
         <div className="text-center">
           <h3 className="text-lg font-medium text-gray-700 mb-2">your board</h3>
-          <Board boardState={playerBoard} isDisabled={true} />
+          <Board
+            boardState={playerBoard}
+            isPlayerBoard={true}
+            isDisabled={true}
+          />
         </div>
         <div className="text-center">
           <h3 className="text-lg font-medium text-gray-700 mb-2">
@@ -62,6 +66,7 @@ function GamePlay({ game, onGameOver, forceRender }) {
           </h3>
           <Board
             boardState={computerBoard}
+            isPlayerBoard={false}
             onCellClick={handleHumanClick}
             isDisabled={
               game.getCurrentPlayer() === "computer" || game.isGameOver()
