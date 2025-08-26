@@ -39,6 +39,8 @@ export default function GameController({ computerPlayer } = {}) {
     if (!result) {
       currentPlayer = "computer";
     }
+
+    return result;
   }
 
   function computerMove() {

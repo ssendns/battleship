@@ -2,7 +2,8 @@ import { useState } from "react";
 import Board from "./Board";
 
 function GamePlay({ game, onGameOver, forceRender }) {
-  const [message, setMessage] = useState("your turn");
+  const [turnMessage, setTurnMessage] = useState("your turn");
+  const [resultMessage, setResultMessage] = useState("");
   const { playerBoard, computerBoard } = game.getBoards();
 
   const handleHumanClick = (x, y) => {
@@ -12,14 +13,17 @@ function GamePlay({ game, onGameOver, forceRender }) {
     forceRender((v) => v + 1);
 
     if (result === "human wins") {
-      setMessage("you win!");
+      setTurnMessage("you win!");
+      setResultMessage("");
       onGameOver("player");
       return;
     }
 
-    setMessage(result ? "hit!" : "miss!");
+    setResultMessage(result ? "hit!" : "");
 
     if (game.getCurrentPlayer() === "computer") {
+      setResultMessage("");
+      setTurnMessage("computer turn");
       setTimeout(() => {
         handleComputerTurn();
       }, 1000);
@@ -33,14 +37,18 @@ function GamePlay({ game, onGameOver, forceRender }) {
     forceRender((v) => v + 1);
 
     if (result === "computer wins") {
-      setMessage("computer wins!");
+      setTurnMessage("computer wins!");
+      setResultMessage("");
       onGameOver("computer");
       return;
     }
 
-    setMessage(result ? "hit!" : "miss!");
+    setResultMessage(result ? "" : "hit!");
 
-    if (game.getCurrentPlayer() === "computer") {
+    if (game.getCurrentPlayer() === "human") {
+      setResultMessage("");
+      setTurnMessage("your turn");
+    } else {
       setTimeout(() => {
         handleComputerTurn();
       }, 1000);
@@ -49,7 +57,10 @@ function GamePlay({ game, onGameOver, forceRender }) {
 
   return (
     <div className="flex flex-col items-center space-y-6">
-      <h2 className="text-2xl font-semibold text-blue-800">{message}</h2>
+      <h2 className="text-2xl font-semibold text-blue-800">{turnMessage}</h2>
+      <div className="text-lg font-semibold mt-4 min-h-[2rem]">
+        {resultMessage}
+      </div>
 
       <div className="flex flex-col sm:flex-row gap-10">
         <div className="text-center">
@@ -62,7 +73,7 @@ function GamePlay({ game, onGameOver, forceRender }) {
         </div>
         <div className="text-center">
           <h3 className="text-lg font-medium text-gray-700 mb-2">
-            enemy board
+            computer board
           </h3>
           <Board
             boardState={computerBoard}
