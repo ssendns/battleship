@@ -61,12 +61,27 @@ function GameSetup({ playerBoard, onComplete }) {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center space-y-6">
+      <h2 className="text-2xl font-semibold text-blue-700">
+        place ship of length: {shipLengths[currentIndex]}
+      </h2>
+
       <Board boardState={playerBoard} onCellClick={handleCellClick} />
-      <button onClick={() => handleRotation(orientation)}>
-        rotate ({orientation})
-      </button>
-      <button onClick={handleRandomPlacement}>place randomly</button>
+
+      <div className="flex gap-4">
+        <button
+          onClick={() => handleRotation(orientation)}
+          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+        >
+          rotate ({orientation})
+        </button>
+        <button
+          onClick={handleRandomPlacement}
+          className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+        >
+          place randomly
+        </button>
+      </div>
     </div>
   );
 }

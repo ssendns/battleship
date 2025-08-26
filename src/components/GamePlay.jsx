@@ -48,20 +48,23 @@ function GamePlay({ game, onGameOver, forceRender }) {
   };
 
   return (
-    <div>
-      <h2>{message}</h2>
-      <div>
-        <div>
-          <h3>your board</h3>
+    <div className="flex flex-col items-center space-y-6">
+      <h2 className="text-2xl font-semibold text-blue-800">{message}</h2>
+
+      <div className="flex flex-col sm:flex-row gap-10">
+        <div className="text-center">
+          <h3 className="text-lg font-medium text-gray-700 mb-2">your board</h3>
           <Board boardState={playerBoard} isDisabled={true} />
         </div>
-        <div>
-          <h3>enemy board</h3>
+        <div className="text-center">
+          <h3 className="text-lg font-medium text-gray-700 mb-2">
+            enemy board
+          </h3>
           <Board
             boardState={computerBoard}
             onCellClick={handleHumanClick}
             isDisabled={
-              game.getCurrentPlayer() == "computer" || game.isGameOver()
+              game.getCurrentPlayer() === "computer" || game.isGameOver()
             }
           />
         </div>

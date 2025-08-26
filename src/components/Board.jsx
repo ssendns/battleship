@@ -1,10 +1,9 @@
 import Cell from "./Cell";
-import "../assets/board.css";
 
 function Board({ boardState, onCellClick, isDisabled }) {
   const board = boardState.getBoardView();
   return (
-    <div className="board">
+    <div className="grid grid-cols-10 grid-rows-10 gap-[2px] w-max m-4">
       {board.map((row, y) =>
         row.map((cell, x) => (
           <Cell

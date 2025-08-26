@@ -1,5 +1,3 @@
-import "../assets/board.css";
-
 export default function Cell({ x, y, cell, onClick, isDisabled }) {
   const handleClick = () => {
     if (!isDisabled) {
@@ -7,13 +5,17 @@ export default function Cell({ x, y, cell, onClick, isDisabled }) {
     }
   };
 
-  let className = "cell";
+  let className =
+    "w-8 h-8 border border-gray-300 transition-colors duration-200";
+
   if (cell.isHit) {
-    className += " hit";
+    className += " bg-red-500";
   } else if (cell.isMiss) {
-    className += " miss";
+    className += " bg-white";
   } else if (cell.hasShip) {
-    className += " ship";
+    className += " bg-blue-900";
+  } else {
+    className += " bg-blue-200 hover:bg-blue-300 cursor-pointer";
   }
 
   return (
