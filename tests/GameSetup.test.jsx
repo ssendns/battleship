@@ -193,4 +193,20 @@ describe("GameSetup", () => {
     expect(Ship).toHaveBeenNthCalledWith(9, 1);
     expect(Ship).toHaveBeenNthCalledWith(10, 1);
   });
+
+  it("disables random placement button after manual placement starts", async () => {
+    const user = userEvent.setup();
+    const onComplete = vi.fn();
+    isPlacementValid.mockReturnValue(true);
+
+    render(<GameSetup playerBoard={playerBoardMock} onComplete={onComplete} />);
+
+    const randomButton = screen.getByText("place randomly");
+    expect(randomButton).toBeEnabled();
+
+    const firstCell = screen.getByTestId("cell-0-0");
+    await user.click(firstCell);
+
+    expect(randomButton).toBeDisabled();
+  });
 });
