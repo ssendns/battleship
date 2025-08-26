@@ -15,7 +15,9 @@ export default function Cell({
   let className =
     "w-8 h-8 border border-gray-300 transition-colors duration-200";
 
-  if (cell.isHit) {
+  if (cell.isHit && cell.isSunk) {
+    className += " bg-red-800";
+  } else if (cell.isHit) {
     className += " bg-red-500";
   } else if (cell.isMiss) {
     className += " bg-white";

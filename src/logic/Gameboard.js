@@ -12,6 +12,7 @@ export default function Gameboard() {
         let isHit = false;
         let isMiss = false;
         let hasShip = false;
+        let isSunk = false;
 
         for (let i = 0; i < ships.length; i++) {
           const curShip = ships[i];
@@ -20,8 +21,14 @@ export default function Gameboard() {
           );
           if (index !== -1) {
             hasShip = true;
-            if (curShip.ship.getHits()[index] === true) {
+            const ship = curShip.ship;
+            const wasHit = ship.getHits()[index];
+
+            if (wasHit) {
               isHit = true;
+              if (ship.isSunk()) {
+                isSunk = true;
+              }
             }
           }
         }
@@ -33,7 +40,7 @@ export default function Gameboard() {
           }
         }
 
-        row.push({ isHit, isMiss, hasShip });
+        row.push({ isHit, isMiss, hasShip, isSunk });
       }
       board.push(row);
     }
