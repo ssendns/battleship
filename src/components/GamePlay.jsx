@@ -58,7 +58,10 @@ function GamePlay({ game, onGameOver, forceRender }) {
   return (
     <div className="flex flex-col items-center space-y-6">
       <h2 className="text-2xl font-semibold text-blue-800">{turnMessage}</h2>
-      <div className="text-lg font-semibold mt-4 min-h-[2rem]">
+      <div
+        data-testid="result-msg"
+        className="text-lg font-semibold mt-4 min-h-[2rem]"
+      >
         {resultMessage}
       </div>
 
