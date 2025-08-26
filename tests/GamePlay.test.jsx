@@ -74,8 +74,9 @@ describe("GamePlay", () => {
     expect(screen.getByText("your turn")).toBeInTheDocument();
   });
 
-  it("makes human move on click and updates message to 'miss!'", async () => {
+  it("makes human move on click and sets result message 'hit' if sucsessful", async () => {
     const user = userEvent.setup();
+    mockGame.humanMove.mockReturnValue(true);
     render(
       <GamePlay
         game={mockGame}
@@ -90,7 +91,27 @@ describe("GamePlay", () => {
 
     expect(mockGame.humanMove).toHaveBeenCalledWith(0, 0);
     expect(forceRender).toHaveBeenCalled();
-    expect(screen.getByText("miss!")).toBeInTheDocument();
+    expect(screen.getByTestId("result-msg").textContent).toBe("hit!");
+  });
+
+  it("makes human move on click and clear result message if not hit", async () => {
+    const user = userEvent.setup();
+    mockGame.humanMove.mockReturnValue(false);
+    render(
+      <GamePlay
+        game={mockGame}
+        onGameOver={onGameOver}
+        forceRender={forceRender}
+      />
+    );
+
+    const cells = screen.getAllByTestId("cell-0-0");
+    const enemyCell = cells[1];
+    await user.click(enemyCell);
+
+    expect(mockGame.humanMove).toHaveBeenCalledWith(0, 0);
+    expect(forceRender).toHaveBeenCalled();
+    expect(screen.getByTestId("result-msg").textContent).toBe("");
   });
 
   it("shows 'you win!' and calls onGameOver when human wins", async () => {
@@ -146,7 +167,6 @@ describe("GamePlay", () => {
 
     expect(mockGame.computerMove).toHaveBeenCalled();
     expect(forceRender).toHaveBeenCalledTimes(2);
-    expect(screen.getByText("hit!")).toBeInTheDocument();
   });
 
   it("shows 'computer wins!' and calls onGameOver", async () => {
