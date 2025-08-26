@@ -13,7 +13,7 @@ describe("Cell", () => {
         onClick={() => {}}
       />
     );
-    expect(container.firstChild.className).toContain("hit");
+    expect(container.firstChild.className).toContain("bg-red-500");
   });
 
   it("applies 'miss' class if cell isMiss is true", () => {
@@ -25,7 +25,19 @@ describe("Cell", () => {
         onClick={() => {}}
       />
     );
-    expect(container.firstChild.className).toContain("miss");
+    expect(container.firstChild.className).toContain("bg-white");
+  });
+
+  it("applies 'sunk' class if cell isSunk is true", () => {
+    const { container } = render(
+      <Cell
+        x={0}
+        y={0}
+        cell={{ isHit: true, isMiss: false, isSunk: true }}
+        onClick={() => {}}
+      />
+    );
+    expect(container.firstChild.className).toContain("bg-red-800");
   });
 
   it("calls onClick with correct coordinates if not disabled", async () => {
@@ -62,5 +74,17 @@ describe("Cell", () => {
     await user.click(cell);
 
     expect(mockClick).not.toHaveBeenCalled();
+  });
+
+  it("applies 'sunk' class if cell isSunk is true", () => {
+    const { container } = render(
+      <Cell
+        x={0}
+        y={0}
+        cell={{ isHit: true, isMiss: false, isSunk: true }}
+        onClick={() => {}}
+      />
+    );
+    expect(container.firstChild.className).toContain("bg-red-800");
   });
 });
