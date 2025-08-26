@@ -9,6 +9,7 @@ function GameSetup({ playerBoard, onComplete }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [orientation, setOrientation] = useState("horizontal");
   const [usedCells, setUsedCells] = useState(new Set());
+  const [manualPlacementStarted, setManualPlacementStarted] = useState(false);
 
   const handleRotation = (current) => {
     if (current === "horizontal") {
@@ -43,6 +44,9 @@ function GameSetup({ playerBoard, onComplete }) {
     );
 
     if (isValid) {
+      if (!manualPlacementStarted) {
+        setManualPlacementStarted(true);
+      }
       const ship = Ship(shipLengths[currentIndex]);
       playerBoard.placeShip(ship, coordinates);
 
@@ -66,7 +70,11 @@ function GameSetup({ playerBoard, onComplete }) {
         place ship of length: {shipLengths[currentIndex]}
       </h2>
 
-      <Board boardState={playerBoard} onCellClick={handleCellClick} />
+      <Board
+        boardState={playerBoard}
+        isPlayerBoard={true}
+        onCellClick={handleCellClick}
+      />
 
       <div className="flex gap-4">
         <button
@@ -77,7 +85,13 @@ function GameSetup({ playerBoard, onComplete }) {
         </button>
         <button
           onClick={handleRandomPlacement}
-          className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+          disabled={manualPlacementStarted}
+          className={`px-4 py-2 text-white rounded transition
+  ${
+    manualPlacementStarted
+      ? "bg-gray-400 cursor-not-allowed"
+      : "bg-gray-700 hover:bg-gray-800"
+  }`}
         >
           place randomly
         </button>
