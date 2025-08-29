@@ -2,6 +2,8 @@
 
 **battleship** is a turn-based game built with React 19 + Vite, featuring dynamic ship placement, turn logic, and responsive UI. But this project is not just a game - I went deep on testing, game logic, and component isolation, writing unit tests with Vitest and React Testing Library to ensure every move, render, and game state works perfectly.
 
+online preview - https://battleship3.netlify.app
+
 <img src="./public/battleship.png" alt="battleship screenshot" width="700"/>
 
 ---
